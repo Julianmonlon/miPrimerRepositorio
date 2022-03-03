@@ -9,6 +9,10 @@ namespace easy
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        byte red;
+        byte green;
+        byte blue;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -19,7 +23,9 @@ namespace easy
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            red = 100;
+            blue = 50;
+            green = 70;
             base.Initialize();
         }
 
@@ -36,13 +42,15 @@ namespace easy
                 Exit();
 
             // TODO: Add your update logic here
-
+            red++;
+            green++;
+            blue++;
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(new Color(red,green,blue));
 
             // TODO: Add your drawing code here
 
