@@ -51,10 +51,23 @@ namespace easy
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            KeyboardState keysState = Keyboard.GetState();
+
             // TODO: Add your update logic here
-            red++;
-            green++;
-            blue++;
+            //red++;
+            //green++;
+            //blue++;
+
+            if (keysState.IsKeyDown(Keys.Left))
+            {
+                positionx = positionx-=1;
+            }
+            else if (keysState.IsKeyDown(Keys.Right))
+            {
+                positionx = positionx += 1;
+            }
+
+            
             base.Update(gameTime);
         }
 
