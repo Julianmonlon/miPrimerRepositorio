@@ -13,6 +13,10 @@ namespace easy
         byte green;
         byte blue;
 
+        int positionx;
+
+        int positiony;
+
         Texture2D spaceShip;
 
         public Game1()
@@ -29,6 +33,8 @@ namespace easy
             blue = 50;
             green = 70;
             base.Initialize();
+            positionx = 300;
+            positiony = 250;
         }
 
         protected override void LoadContent()
@@ -37,7 +43,7 @@ namespace easy
 
             // TODO: use this.Content to load your game content here
 
-            spaceShip = this.Content.Load<Texture2D>("Spaceship");
+            spaceShip = this.Content.Load<Texture2D>("Imagen2");
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,7 +70,7 @@ namespace easy
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(spaceShip,new Vector2(300,250),Color.White);
+            _spriteBatch.Draw(spaceShip,new Vector2(positionx,positiony),Color.White);
 
             _spriteBatch.End();
 
