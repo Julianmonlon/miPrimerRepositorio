@@ -13,6 +13,8 @@ namespace easy
         byte green;
         byte blue;
 
+        Texture2D spaceShip;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -34,6 +36,8 @@ namespace easy
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+            spaceShip = this.Content.Load<Texture2D>("Spaceship");
         }
 
         protected override void Update(GameTime gameTime)
@@ -50,9 +54,20 @@ namespace easy
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(new Color(red,green,blue));
+            //GraphicsDevice.Clear(new Color(red,green,blue));
+
+            GraphicsDevice.Clear(Color.Black);
+
+
 
             // TODO: Add your drawing code here
+
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(spaceShip,new Vector2(300,250),Color.White);
+
+            _spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
