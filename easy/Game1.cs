@@ -9,15 +9,15 @@ namespace easy
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        byte red;
-        byte green;
-        byte blue;
-
-        int positionx;
-
-        int positiony;
+        bool fireBallSwitch;
 
         Texture2D spaceShip;
+
+        Texture2D fireBall;
+
+        Rectangle fireBallRectangle;
+
+        Rectangle spaceShipRectangle;
 
         public Game1()
         {
@@ -29,12 +29,11 @@ namespace easy
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            red = 100;
-            blue = 50;
-            green = 70;
+            
             base.Initialize();
-            positionx = 300;
-            positiony = 250;
+            fireBallSwitch = false;
+            fireBallRectangle = new Rectangle(0, 0, 50, 50);
+            spaceShipRectangle = new Rectangle(300, 250, 200, 200);
         }
 
         protected override void LoadContent()
@@ -44,6 +43,8 @@ namespace easy
             // TODO: use this.Content to load your game content here
 
             spaceShip = this.Content.Load<Texture2D>("Imagen2");
+
+            fireBall = this.Content.Load<Texture2D>("Imagen1");
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,14 +61,23 @@ namespace easy
 
             if (keysState.IsKeyDown(Keys.Left))
             {
-                positionx = positionx-=1;
+                spaceShipRectangle.X-=3;
             }
             else if (keysState.IsKeyDown(Keys.Right))
             {
-                positionx = positionx += 1;
+                spaceShipRectangle.X += 3;
+            }
+            else if(keysState.IsKeyDown(Keys.Space))
+            {
+                fireBallSwitch = true;
+                fireBallRectangle.X = spaceShipRectangle.X+(spaceShipRectangle.Width/2)-25;
+                fireBallRectangle.Y = spaceShipRectangle.Y;
+            }
+            if (fireBallSwitch)
+            {
+                fireBallRectangle.Y-=5;
             }
 
-            
             base.Update(gameTime);
         }
 
@@ -83,12 +93,19 @@ namespace easy
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(spaceShip,new Vector2(positionx,positiony),Color.White);
+            if (fireBallSwitch)
+            {
+                
+                _spriteBatch.Draw(fireBall,fireBallRectangle, Color.White);
+            }
+
+            _spriteBatch.Draw(spaceShip,new Vector2(spaceShipRectangle.X, spaceShipRectangle.Y),Color.White);
 
             _spriteBatch.End();
 
-
             base.Draw(gameTime);
+
+           
         }
     }
 }
