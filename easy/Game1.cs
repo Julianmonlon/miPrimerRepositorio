@@ -1,23 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections;
+using System.Collections.Generic;
+
 
 namespace easy
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
 
-        bool fireBallSwitch;
+        private SpriteBatch _spriteBatch;
 
         Texture2D spaceShip;
 
         Texture2D fireBall;
 
-        Rectangle fireBallRectangle;
-
         Rectangle spaceShipRectangle;
+
+        List<Rectangle> fireballRectangles;
+
+
+
+
 
         public Game1()
         {
@@ -31,9 +37,10 @@ namespace easy
             // TODO: Add your initialization logic here
             
             base.Initialize();
-            fireBallSwitch = false;
-            fireBallRectangle = new Rectangle(0, 0, 50, 50);
+
             spaceShipRectangle = new Rectangle(300, 250, 200, 200);
+
+            fireballRectangles = new List<Rectangle>();
         }
 
         protected override void LoadContent()
@@ -69,13 +76,11 @@ namespace easy
             }
             else if(keysState.IsKeyDown(Keys.Space))
             {
-                fireBallSwitch = true;
-                fireBallRectangle.X = spaceShipRectangle.X+(spaceShipRectangle.Width/2)-25;
-                fireBallRectangle.Y = spaceShipRectangle.Y;
-            }
-            if (fireBallSwitch)
-            {
-                fireBallRectangle.Y-=5;
+                fireballRectangles.Add(new Rectangle(spaceShipRectangle.X + (spaceShipRectangle.Width / 2) - 25, spaceShipRectangle.Y+10,50,50));
+
+                //fireBallRectangle.X = spaceShipRectangle.X+(spaceShipRectangle.Width/2)-25;
+
+                //fireBallRectangle.Y = spaceShipRectangle.Y;
             }
 
             base.Update(gameTime);
@@ -93,13 +98,12 @@ namespace easy
 
             _spriteBatch.Begin();
 
-            if (fireBallSwitch)
+            foreach (var item in fireballRectangles)
             {
-                
-                _spriteBatch.Draw(fireBall,fireBallRectangle, Color.White);
+                _spriteBatch.Draw(fireBall, item, Color.White);
             }
 
-            _spriteBatch.Draw(spaceShip,new Vector2(spaceShipRectangle.X, spaceShipRectangle.Y),Color.White);
+            _spriteBatch.Draw(spaceShip,spaceShipRectangle,Color.White);
 
             _spriteBatch.End();
 
